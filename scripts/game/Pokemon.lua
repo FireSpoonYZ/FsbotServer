@@ -1,21 +1,9 @@
-require('scripts.class')
-require('scripts.game.type')
+require('scripts.utils.class')
+require('scripts.utils.List')
+require('scripts.game.Type')
 
 Pokemon = class()
-function Pokemon:__init__(name, hp, atk, def, spAtk, spDef, spd, types)
-    assert(type(name) == 'string')
-    assert(type(hp) == 'number')
-    assert(type(atk) == 'number')
-    assert(type(def) == 'number')
-    assert(type(spAtk) == 'number')
-    assert(type(spDef) == 'number')
-    assert(type(spd) == 'number')
-    assert(type(types) == 'table')
-    for _, v in ipairs(types) do
-        assert(isObject(v))
-        assert(v.__class__ == Type)
-    end
-
+function Pokemon:__init(name, hp, atk, def, spAtk, spDef, spd, types)
     self.name = name
     self.hp = hp
     self.atk = atk
@@ -39,7 +27,7 @@ function PokemonBuilder:setProperty(name, value)
     return self
 end
 function PokemonBuilder:setTypes(...)
-    self.types = { ... }
+    self.types = List(...)
     return self
 end
 function PokemonBuilder:build()

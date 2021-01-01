@@ -1,16 +1,15 @@
 package org.firespoon.fsbotserver.service;
 
 import org.firespoon.fsbotserver.mapper.CurrentCardMapper;
-import org.firespoon.fsbotserver.model.Card;
-import org.firespoon.fsbotserver.model.CheckResult;
-import org.firespoon.fsbotserver.model.CurrentCard;
-import org.firespoon.fsbotserver.model.DiceResult;
+import org.firespoon.fsbotserver.model.*;
 import org.firespoon.fsbotserver.utils.Ensure;
 import org.firespoon.fsbotserver.utils.MapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,6 +24,34 @@ public class CocService {
         this.cardService = cardService;
         this.diceService = diceService;
     }
+
+    public List<CocResult> coc(Integer time) {
+        List<CocResult> result = new LinkedList<>();
+        for (int i = 0; i < time; ++i) {
+            Integer STR = diceService.dice("3D6*5").getRes();
+            Integer CON = diceService.dice("3D6*5").getRes();
+            Integer SIZ = diceService.dice("(2D6+6)*5").getRes();
+            Integer DEX = diceService.dice("3D6*5").getRes();
+            Integer APP = diceService.dice("3D6*5").getRes();
+            Integer INT = diceService.dice("(2D6+6)*5").getRes();
+            Integer POW = diceService.dice("3D6*5").getRes();
+            Integer EDU = diceService.dice("(2D6+6)*5").getRes();
+            Integer LUK = diceService.dice("3D6*5").getRes();
+            CocResult res = new CocResult();
+            res.setSTR(STR);
+            res.setCON(CON);
+            res.setSIZ(SIZ);
+            res.setDEX(DEX);
+            res.setAPP(APP);
+            res.setINT(INT);
+            res.setPOW(POW);
+            res.setEDU(EDU);
+            res.setLUK(LUK);
+            result.add(res);
+        }
+        return result;
+    }
+
 
     public CurrentCard newCurrentCard(Long placeId, Long ownerId) {
         CurrentCard record = new CurrentCard();
@@ -141,7 +168,7 @@ public class CocService {
             checkResult.setResult("困难成功");
         } else if (diceRes <= property) {
             checkResult.setResult("成功");
-        } else if(diceRes > 95) {
+        } else if (diceRes > 95) {
             checkResult.setResult("大失败");
         } else {
             checkResult.setResult("失败");
@@ -149,6 +176,7 @@ public class CocService {
 
         return checkResult;
     }
+
     private static final Map<String, Integer> defaultProperties = new LinkedHashMap<>();
 
     static {

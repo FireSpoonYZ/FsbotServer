@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 @Service
 public class DiceService {
     public List<Integer> singleDice(String diceExp) {
-        Pattern pattern = Pattern.compile("^([1-9][0-9]*)d([1-9][0-9]*)$");
+        Pattern pattern = Pattern.compile("^([1-9][0-9]*)[dD]([1-9][0-9]*)$");
         Matcher matcher = pattern.matcher(diceExp);
         if (!matcher.find()) {
             throw new RuntimeException();
@@ -58,7 +58,7 @@ public class DiceService {
         List<List<Integer>> singleDiceResults = new LinkedList<>();
         for (int index: diceTokenIndices) {
             String singleDice = tokens.get(index);
-            Pattern pattern = Pattern.compile("^([1-9][0-9]*)d([1-9][0-9]*)$");
+            Pattern pattern = Pattern.compile("^([1-9][0-9]*)[dD]([1-9][0-9]*)$");
             Matcher matcher = pattern.matcher(singleDice);
             List<Integer> singleDiceResult;
             if (matcher.find()) {

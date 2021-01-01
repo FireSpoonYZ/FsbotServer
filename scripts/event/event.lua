@@ -1,12 +1,11 @@
-require('scripts.class')
+require('scripts.utils.class')
 
 Event = class()
-function Event:__init__(name, extra)
-    assert(type(name) == 'string')
-    assert(type(extra) == 'table')
-
+function Event:__init(name, extra)
     self.name = name
-    for k, v in pairs(extra) do
-        self[k] = v
-    end
+    self.extra = extra or {}
+end
+
+function Event:__index(key)
+    return self.extra[key]
 end

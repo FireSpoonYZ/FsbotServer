@@ -1,6 +1,7 @@
 package org.firespoon.fsbotserver.controller;
 
 import org.firespoon.fsbotserver.model.CheckResult;
+import org.firespoon.fsbotserver.model.CocResult;
 import org.firespoon.fsbotserver.model.Result;
 import org.firespoon.fsbotserver.model.ResultFactory;
 import org.firespoon.fsbotserver.service.CocService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("coc")
 public class CocController {
@@ -19,6 +22,17 @@ public class CocController {
     @Autowired
     public CocController(CocService service) {
         this.service = service;
+    }
+
+    @GetMapping("coc")
+    public Result<List<CocResult>> coc(
+            @RequestParam(value = "time", required = false) Integer time
+    ) {
+        if (time == null) {
+            time = 1;
+        }
+        List<CocResult> result = service.coc(time);
+        return ResultFactory.success(result);
     }
 
     @GetMapping("init")

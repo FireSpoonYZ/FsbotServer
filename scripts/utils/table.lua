@@ -1,4 +1,5 @@
-function table.clone(list)
+--[[
+function table.deepCopy(list)
     assert(type(list) == 'table')
 
     local res = {}
@@ -8,6 +9,17 @@ function table.clone(list)
         else
             res[k] = v
         end
+    end
+    setmetatable(res, getmetatable(list))
+
+    return res
+end
+function table.copy(list)
+    assert(type(list) == 'table')
+
+    local res = {}
+    for k, v in pairs(list) do
+        res[k] = v
     end
     setmetatable(res, getmetatable(list))
 
@@ -32,3 +44,4 @@ function table.delete(list, element)
     assert(index ~= -1)
     table.remove(list, index)
 end
+]]

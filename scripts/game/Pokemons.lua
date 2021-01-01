@@ -1,5 +1,5 @@
-require('scripts.game.pokemon')
-require('scripts.game.type')
+require('scripts.game.Pokemon')
+require('scripts.game.Type')
 
 Pokemons = {}
 
@@ -37,4 +37,16 @@ Pokemons.venusaur = Pokemon
         :setProperty('spDef', 100)
         :setProperty('spd', 80)
         :setTypes(Type.grass, Type.poison)
+        :build()
+
+Pokemons.sg = Pokemon
+        :builder()
+        :setName('水钢')
+        :setProperty('hp', 80)
+        :setProperty('atk', 50)
+        :setProperty('def', 110)
+        :setProperty('spAtk', 100)
+        :setProperty('spDef', 110)
+        :setProperty('spd', 80)
+        :setTypes(Type.water, Type.steel)
         :build()

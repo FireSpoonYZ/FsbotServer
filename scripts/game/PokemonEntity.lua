@@ -1,10 +1,8 @@
-require('scripts.game.pokemon')
-require('scripts.game.skill.skill')
+require('scripts.game.Pokemon')
+require('scripts.game.skill.Skill')
 
 PokemonEntity = class()
-function PokemonEntity:__init__(pokemon)
-    assert(instanceof(pokemon, Pokemon))
-
+function PokemonEntity:__init(pokemon)
     self.pokemon = pokemon
     self.level = 1
 
@@ -27,12 +25,17 @@ function PokemonEntity:__init__(pokemon)
 
     self.skills = {}
 
-    self.types = {}
-    for _, type in pairs(pokemon.types) do
-        table.insert(self.types, type)
-    end
+    self.dying = false
 
     self:updateProperties()
+end
+
+function PokemonEntity:__index(key)
+    if key == 'types' then
+        return self.pokemon.types
+    else
+        return rawget(self, key)
+    end
 end
 
 function PokemonEntity:updateProperties()
