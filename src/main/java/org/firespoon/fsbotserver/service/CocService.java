@@ -71,7 +71,7 @@ public class CocService {
             currentCard = new CurrentCard(card, placeId);
         }
         currentCard.setProperties(card.getProperties());
-        return mapper.update(currentCard);
+        return mapper.updateByPrimaryKey(currentCard);
     }
 
     public CurrentCard getCurrentCard(Long placeId, Long ownerId) {
@@ -129,7 +129,7 @@ public class CocService {
         CurrentCard currentCard = getCurrentCard(placeId, ownerId);
         Map<String, Integer> properties = currentCard.getProperties();
         properties.put(name, value);
-        return mapper.update(currentCard);
+        return mapper.updateByPrimaryKey(currentCard);
     }
 
     public Integer init(
@@ -138,7 +138,7 @@ public class CocService {
     ) {
         CurrentCard currentCard = getCurrentCard(placeId, ownerId);
         currentCard.setProperties(defaultProperties);
-        return mapper.update(currentCard);
+        return mapper.updateByPrimaryKey(currentCard);
     }
 
     public CheckResult check(

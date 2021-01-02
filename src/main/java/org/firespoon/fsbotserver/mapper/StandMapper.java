@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface StandMapper extends BaseMapper<Stand> {
-    List<Stand> random(Integer time);
+    //List<Stand> random(Integer time);
 }

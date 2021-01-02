@@ -2,10 +2,10 @@ package org.firespoon.fsbotserver.service;
 
 import org.firespoon.fsbotserver.mapper.ServantMapper;
 import org.firespoon.fsbotserver.model.Servant;
-import org.firespoon.fsbotserver.utils.RandomUtils;
 import org.firespoon.fsbotserver.utils.ServantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -25,14 +25,18 @@ public class ServantService {
             Long userId,
             String command
     ) {
-        List<Servant> params = new LinkedList<>();
-        for (String clazz: clazzList) {
-            Servant param = new Servant();
-            param.setClazz(ServantUtils.toHump(clazz));
-            params.add(param);
-        }
+        List<Servant> servants;
+        if (!clazzList.isEmpty()) {
+            Example example = new Example(Servant.class);
+            Example.Criteria criteria = example.createCriteria();
+            for (String clazz: clazzList) {
+                criteria.orEqualTo("clazz", clazz);
+            }
 
-        List<Servant> servants = mapper.selectAll(params);
+            servants = mapper.selectByExample(example);
+        } else {
+            servants = mapper.selectAll();
+        }
 
         if (command != null && userId != null) {
             Date date = new Date();
@@ -82,7 +86,10 @@ public class ServantService {
             name = "哈桑";
         }
 
-        List<Servant> hassans = mapper.selectNameLike(name);
+        Example example = new Example(Servant.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andLike("name", name);
+        List<Servant> hassans = mapper.selectByExample(example);
 
         Collections.shuffle(hassans, random);
         return hassans.subList(0, time);

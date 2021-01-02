@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface ServantMapper extends BaseMapper<Servant> {
-    List<Servant> selectNameLike(String name);
+    //List<Servant> selectNameLike(String name);
 }

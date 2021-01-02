@@ -1,12 +1,15 @@
 package org.firespoon.fsbotserver.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.firespoon.fsbotserver.utils.ArkNightsUtils.Tag;
 
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class Agent {
     private final List<Tag> tags;
     private final Integer rarity;

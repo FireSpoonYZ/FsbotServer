@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,9 @@ public class ServantController {
                     String command
     ) {
         List<String> clazzList = Arrays.asList(clazz.split("\\|"));
+        if ("".equals(clazz)) {
+            clazzList = new LinkedList<>();
+        }
         List<Servant> res = service.random(time, clazzList, userId, command);
         return ResultFactory.success(res);
     }

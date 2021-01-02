@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface DnaMapper extends BaseMapper<Dna> {
-    List<Dna> draw(Integer[] time);
+    //List<Dna> draw(Integer[] time);
 }

@@ -5,6 +5,7 @@ import org.firespoon.fsbotserver.model.Stand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,6 +18,8 @@ public class StandService {
     }
 
     public List<Stand> random(Integer time) {
-        return mapper.random(time);
+        List<Stand> standList = mapper.selectAll();
+        Collections.shuffle(standList);
+        return standList.subList(0, time);
     }
 }

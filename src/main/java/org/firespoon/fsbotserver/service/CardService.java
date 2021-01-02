@@ -25,7 +25,7 @@ public class CardService {
     }
 
     public Integer save(Card card) {
-        return mapper.update(card);
+        return mapper.updateByPrimaryKey(card);
     }
 
     public Integer delete(Long ownerId, String name) {
