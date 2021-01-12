@@ -1,11 +1,11 @@
 package org.firespoon.fsbotserver.utils;
 
-import org.firespoon.fsbotserver.mapper.BaseMapper;
+import org.firespoon.fsbotserver.mapper.IBaseMapper;
 
 import java.util.List;
 
 abstract public class MapperUtils {
-    public static <T, M extends BaseMapper<T>> T unionSelect(M mapper, T param) {
+    public static <T, M extends IBaseMapper<T>> T unionSelect(M mapper, T param) {
         List<T> res = mapper.select(param);
         if (res.size() == 0) {
             return null;

@@ -88,7 +88,7 @@ public class ServantService {
 
         Example example = new Example(Servant.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andLike("name", name);
+        criteria.andLike("name", "%" + name + "%");
         List<Servant> hassans = mapper.selectByExample(example);
 
         Collections.shuffle(hassans, random);

@@ -4,5 +4,5 @@ import org.apache.ibatis.annotations.Mapper;
 import org.firespoon.fsbotserver.model.CurrentCard;
 
 @Mapper
-public interface CurrentCardMapper extends BaseMapper<CurrentCard> {
+public interface CurrentCardMapper extends IBaseMapper<CurrentCard> {
 }

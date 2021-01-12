@@ -9,7 +9,6 @@ import tk.mybatis.mapper.annotation.ColumnType;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.List;
 import java.util.Map;
 
 @Data
@@ -21,10 +20,8 @@ public class Card {
     private Long ownerId;
 
     @Column(name = "name")
-    //@Id
     private String name;
 
-    //@Column(name = "properties_json")
     @ColumnType(
             typeHandler = CardPropertiesJsonTypeHandler.class,
             jdbcType = JdbcType.LONGNVARCHAR,

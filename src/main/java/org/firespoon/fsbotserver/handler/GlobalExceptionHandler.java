@@ -12,6 +12,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Throwable.class)
     public Result<Void> globalExceptionHandler(Throwable e){
         e.printStackTrace();
-        return ResultFactory.fail(e.getMessage());
+        return ResultFactory.fail(e.getClass().getSimpleName() + ": " + e.getMessage());
     }
 }

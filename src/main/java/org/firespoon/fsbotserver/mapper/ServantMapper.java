@@ -3,9 +3,7 @@ package org.firespoon.fsbotserver.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.firespoon.fsbotserver.model.Servant;
 
-import java.util.List;
-
 @Mapper
-public interface ServantMapper extends BaseMapper<Servant> {
+public interface ServantMapper extends IBaseMapper<Servant> {
     //List<Servant> selectNameLike(String name);
 }
