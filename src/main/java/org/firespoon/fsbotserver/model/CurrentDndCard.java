@@ -2,8 +2,9 @@ package org.firespoon.fsbotserver.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.JdbcType;
-import org.firespoon.fsbotserver.handler.CardPropertiesJsonTypeHandler;
+import org.firespoon.fsbotserver.handler.CurrentCardPropertiesJsonTypeHandler;
 import tk.mybatis.mapper.annotation.ColumnType;
 
 import javax.persistence.Column;
@@ -12,23 +13,30 @@ import javax.persistence.Table;
 import java.util.Map;
 
 @Data
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "card")
-public class Card {
+@Table(name="current_dnd_card")
+public class CurrentDndCard {
     @Column(name = "id")
     @Id
     private Long id;
 
+    @Column(name = "place_id")
+    private Long placeId;
+
     @Column(name = "owner_id")
     private Long ownerId;
 
-    @Column(name = "name")
-    private String name;
-
     @ColumnType(
-            typeHandler = CardPropertiesJsonTypeHandler.class,
+            typeHandler = CurrentCardPropertiesJsonTypeHandler.class,
             jdbcType = JdbcType.LONGNVARCHAR,
             column = "properties_json"
     )
     private Map<String, Integer> properties;
+
+    public CurrentDndCard(Card card, Long placeId) {
+        this.placeId = placeId;
+        this.ownerId = card.getOwnerId();
+        this.properties = card.getProperties();
+    }
 }

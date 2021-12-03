@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("dice")
 public class DiceController {
@@ -21,10 +23,10 @@ public class DiceController {
     }
 
     @GetMapping("dice")
-    public Result<DiceResult> dice(
+    public Result<List<DiceResult>> dice(
             @RequestParam("dice_exp") String diceExp
     ) {
-        DiceResult res = service.dice(diceExp);
+        List<DiceResult> res = service.multiple_dice(diceExp);
         return ResultFactory.success(res);
     }
 }

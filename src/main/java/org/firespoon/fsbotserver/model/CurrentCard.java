@@ -17,6 +17,9 @@ import java.util.Map;
 @EqualsAndHashCode(callSuper = false)
 @Table(name="current_card")
 public class CurrentCard {
+    @Column(name = "id")
+    @Id
+    private Long id;
 
     @Column(name = "place_id")
     private Long placeId;
@@ -24,13 +27,11 @@ public class CurrentCard {
     @Column(name = "owner_id")
     private Long ownerId;
 
-
     @ColumnType(
             typeHandler = CurrentCardPropertiesJsonTypeHandler.class,
             jdbcType = JdbcType.LONGNVARCHAR,
             column = "properties_json"
     )
-    @Id
     private Map<String, Integer> properties;
 
     public CurrentCard(Card card, Long placeId) {

@@ -13,12 +13,12 @@ import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Table(name = "card")
-public class Card {
+@Table(name = "dnd_card")
+public class DndCard {
     @Column(name = "id")
     @Id
     private Long id;
-
+    
     @Column(name = "owner_id")
     private Long ownerId;
 

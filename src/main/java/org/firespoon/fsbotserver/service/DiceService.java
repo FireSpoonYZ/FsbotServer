@@ -14,17 +14,43 @@ import java.util.regex.Pattern;
 @Service
 public class DiceService {
     public List<Integer> singleDice(String diceExp) {
-        Pattern pattern = Pattern.compile("^([1-9][0-9]*)[dD]([1-9][0-9]*)$");
+        Pattern pattern = Pattern.compile("^([1-9][0-9]*)?[dD]([1-9][0-9]*)$");
         Matcher matcher = pattern.matcher(diceExp);
         if (!matcher.find()) {
             throw new RuntimeException();
         }
 
-        int time = Integer.parseInt(matcher.group(1));
+        String time_s = matcher.group(1);
+        if (time_s == null) {
+            time_s = "1";
+        }
+
+        int time = Integer.parseInt(time_s);
         int max = Integer.parseInt(matcher.group(2));
         LinkedList<Integer> res = new LinkedList<>();
         for (int i = 0; i < time; ++i) {
             res.add(RandomUtils.random(1, max));
+        }
+        return res;
+    }
+
+    public List<DiceResult> multiple_dice(String diceExp) {
+        Pattern pattern = Pattern.compile("^(([1-9][0-9]*)#)?(.*)$");
+        Matcher matcher = pattern.matcher(diceExp);
+        if (!matcher.find()) {
+            throw new RuntimeException();
+        }
+
+        String time_s = matcher.group(2);
+        if (time_s == null) {
+            time_s = "1";
+        }
+        int time = Integer.parseInt(time_s);
+        String expr = matcher.group(3);
+        List<DiceResult> res = new LinkedList<>();
+        for (int i = 0; i < time; ++i) {
+            DiceResult r = dice(expr);
+            res.add(r);
         }
         return res;
     }
@@ -58,7 +84,7 @@ public class DiceService {
         List<List<Integer>> singleDiceResults = new LinkedList<>();
         for (int index: diceTokenIndices) {
             String singleDice = tokens.get(index);
-            Pattern pattern = Pattern.compile("^([1-9][0-9]*)[dD]([1-9][0-9]*)$");
+            Pattern pattern = Pattern.compile("^([1-9][0-9]*)?[dD]([1-9][0-9]*)$");
             Matcher matcher = pattern.matcher(singleDice);
             List<Integer> singleDiceResult;
             if (matcher.find()) {
